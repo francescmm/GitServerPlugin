@@ -1,0 +1,9 @@
+[submodule "src/AuxiliarCustomWidgets"]
+	path = src/AuxiliarCustomWidgets
+	url = https://github.com/francescmm/AuxiliarCustomWidgets.git
+[submodule "src/QLogger"]
+	path = src/QLogger
+	url = https://github.com/francescmm/QLogger.git
+[submodule "src/git"]
+	path = src/git
+	url = https://github.com/francescmm/git.git
