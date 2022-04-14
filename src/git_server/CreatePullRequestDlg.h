@@ -33,7 +33,6 @@ class CreatePullRequestDlg;
 }
 
 class GitServerCache;
-class GitCache;
 
 namespace GitServerPlugin
 {

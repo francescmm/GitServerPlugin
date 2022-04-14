@@ -23,13 +23,11 @@
  ** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************************************/
 
-#include <Milestone.h>
-#include <Label.h>
-#include <PullRequest.h>
+#include <GitServerTypes.h>
 
-#include <QObject>
 #include <QMap>
 #include <QNetworkRequest>
+#include <QObject>
 
 class QNetworkAccessManager;
 class QNetworkReply;

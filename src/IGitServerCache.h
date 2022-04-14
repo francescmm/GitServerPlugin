@@ -24,12 +24,15 @@
  ***************************************************************************************/
 
 #include <ConfigData.h>
-#include <PullRequest.h>
 
 namespace GitServerPlugin
 {
 enum class Platform;
 class IRestApi;
+struct Issue;
+struct Label;
+struct Milestone;
+struct PullRequest;
 };
 
 class IGitServerCache

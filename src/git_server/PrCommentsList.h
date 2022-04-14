@@ -24,20 +24,11 @@
  ***************************************************************************************/
 
 #include <GitServerCache.h>
-#include <Issue.h>
+#include <GitServerTypes.h>
 #include <document.h>
 
 #include <QFrame>
 #include <QMutex>
-
-namespace GitServerPlugin
-{
-struct Issue;
-struct PullRequest;
-struct Comment;
-struct Review;
-struct CodeReview;
-}
 
 class QLabel;
 class QVBoxLayout;

@@ -3,9 +3,6 @@
 #include <GitHubRestApi.h>
 #include <GitLabRestApi.h>
 
-#include <Label.h>
-#include <Milestone.h>
-
 using namespace GitServerPlugin;
 
 GitServerCache::GitServerCache(QObject *parent)
@@ -62,6 +59,11 @@ QVector<PullRequest> GitServerCache::getPullRequests() const
              [](const PullRequest &p1, const PullRequest &p2) { return p1.creation > p2.creation; });
 
    return pullRequests.toVector();
+}
+
+PullRequest GitServerCache::getPullRequest(int number) const
+{
+   return mPullRequests.value(number);
 }
 
 void GitServerCache::onConnectionTested()

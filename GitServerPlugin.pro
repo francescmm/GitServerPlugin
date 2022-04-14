@@ -35,7 +35,7 @@ CONFIG(debug, debug|release) {
     linux: TARGET = $$join(TARGET,,,d_$$VERSION)
 }
 
-copydata.commands = $(COPY_DIR) $$PWD/src/IGitServerWidget.h $$PWD/src/ConfigData.h $$PWD/src/IGitServerWidget.h $$PWD/src/gitserverplugin_global.h $${DESTDIR}
+copydata.commands = $(COPY_DIR) $$PWD/src/IGitServerWidget.h $$PWD/src/git_server/GitServerTypes.h $$PWD/src/ConfigData.h $$PWD/src/IGitServerCache.h $$PWD/src/gitserverplugin_global.h $${DESTDIR}
 
 first.depends = $(first) copydata
 export(first.depends)

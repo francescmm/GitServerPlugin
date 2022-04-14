@@ -1,7 +1,7 @@
 #include <CodeReviewComment.h>
 
 #include <AvatarHelper.h>
-#include <Comment.h>
+#include <GitServerTypes.h>
 #include <previewpage.h>
 
 #include <QLabel>

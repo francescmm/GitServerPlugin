@@ -23,21 +23,26 @@
  ** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  ***************************************************************************************/
 
+#include <QFrame>
 #include <QtPlugin>
 
 #include <gitserverplugin_global.h>
 
 #include <ConfigData.h>
 
-class GitCache;
 class GitBase;
 class IGitServerCache;
 
 #define IGitServerWidget_iid "francescmm.GitServerPlugin/0.1.0"
 
-class GITSERVERPLUGIN_EXPORT IGitServerWidget
+class GITSERVERPLUGIN_EXPORT IGitServerWidget : public QFrame
 {
 public:
+   explicit IGitServerWidget(QWidget *parent = nullptr)
+      : QFrame(parent)
+   {
+   }
+
    virtual ~IGitServerWidget() = default;
 
    /**
@@ -53,7 +58,7 @@ public:
     * @brief isConfigured Returns the current state of the widget
     * @return True if configured, otherwise false.
     */
-   virtual bool isConfigured() const final { return mConfigured; }
+   virtual bool isConfigured() const = 0;
 
    /**
     * @brief openPullRequest The method opens the PR view directly.
@@ -73,9 +78,7 @@ public:
     */
    virtual QSharedPointer<IGitServerCache> getCache() = 0;
 
-   virtual IGitServerWidget *createWidget(const QSharedPointer<GitCache> &cache, const QSharedPointer<GitBase> &git,
-                                          QWidget *parent)
-       = 0;
+   virtual IGitServerWidget *createWidget(const QSharedPointer<GitBase> &git) = 0;
 
 protected:
    bool mConfigured = false;

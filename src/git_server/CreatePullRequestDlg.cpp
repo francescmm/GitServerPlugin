@@ -4,10 +4,7 @@
 #include <GitHubRestApi.h>
 #include <GitLabRestApi.h>
 #include <GitServerCache.h>
-#include <Issue.h>
-#include <Label.h>
-#include <Milestone.h>
-#include <PullRequest.h>
+#include <GitServerTypes.h>
 
 #include <previewpage.h>
 

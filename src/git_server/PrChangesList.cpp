@@ -5,9 +5,8 @@
 #include <GitConfig.h>
 #include <GitHistory.h>
 #include <GitRemote.h>
-
+#include <GitServerTypes.h>
 #include <PrChangeListItem.h>
-#include <PullRequest.h>
 
 #include <QLogger.h>
 

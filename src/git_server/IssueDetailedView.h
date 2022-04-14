@@ -26,7 +26,7 @@
 #include <QFrame>
 #include <QMap>
 
-#include <Issue.h>
+#include <GitServerTypes.h>
 
 class QLabel;
 class GitServerCache;
@@ -38,12 +38,6 @@ class GitBase;
 class PrChangesList;
 class QToolButton;
 class QPushButton;
-
-namespace GitServerPlugin
-{
-struct Issue;
-struct PullRequest;
-}
 
 class IssueDetailedView : public QFrame
 {

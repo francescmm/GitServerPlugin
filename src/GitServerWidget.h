@@ -40,19 +40,22 @@ class IRestApi;
 struct Issue;
 }
 
-class GitServerWidget final : public QFrame, public IGitServerWidget
+class GitServerWidget final : public IGitServerWidget
 {
    Q_OBJECT
+   Q_PLUGIN_METADATA(IID "francescmm.GitServerPlugin" FILE "GitServerPlugin.json")
+   Q_INTERFACES(IGitServerWidget)
 
 public:
    explicit GitServerWidget(QWidget *parent = nullptr);
-   explicit GitServerWidget(const QSharedPointer<GitCache> &cache, const QSharedPointer<GitBase> &git,
-                            QWidget *parent = nullptr);
+   explicit GitServerWidget(const QSharedPointer<GitBase> &git, QWidget *parent = nullptr);
 
    virtual ~GitServerWidget() override;
 
    bool configure(const GitServerPlugin::ConfigData &config, const QVector<QPair<QString, QStringList>> &remoteBranches,
                   const QString &styles) override;
+
+   bool isConfigured() const override { return mConfigured; }
 
    void openPullRequest(int prNumber) override;
 
@@ -60,11 +63,9 @@ public:
 
    QSharedPointer<IGitServerCache> getCache() override;
 
-   IGitServerWidget *createWidget(const QSharedPointer<GitCache> &cache, const QSharedPointer<GitBase> &git,
-                                  QWidget *parent) override;
+   IGitServerWidget *createWidget(const QSharedPointer<GitBase> &git) override;
 
 private:
-   QSharedPointer<GitCache> mCache;
    QSharedPointer<GitBase> mGit;
    QSharedPointer<GitServerCache> mGitServerCache;
    QStackedLayout *mStackedLayout = nullptr;
@@ -75,6 +76,5 @@ private:
    QPushButton *mOldIssue = nullptr;
    QPushButton *mOldPr = nullptr;
    QPushButton *mRefresh = nullptr;
-   bool mConfigured = false;
    QVector<QPair<QString, QStringList>> mRemoteBranches;
 };

@@ -4,7 +4,7 @@
 #include <GitHubRestApi.h>
 #include <GitLabRestApi.h>
 #include <GitServerCache.h>
-#include <Issue.h>
+#include <GitServerTypes.h>
 
 #include <previewpage.h>
 

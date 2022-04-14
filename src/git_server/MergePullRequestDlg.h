@@ -24,7 +24,7 @@
  ***************************************************************************************/
 
 #include <ConfigData.h>
-#include <PullRequest.h>
+#include <GitServerTypes.h>
 
 #include <QDialog>
 
@@ -38,7 +38,6 @@ class GitBase;
 namespace GitServerPlugin
 {
 class IRestApi;
-struct PullRequest;
 }
 
 /**

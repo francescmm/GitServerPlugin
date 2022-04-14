@@ -6,9 +6,9 @@
 #include <GitHubRestApi.h>
 #include <GitLabRestApi.h>
 #include <GitServerCache.h>
+#include <GitServerTypes.h>
 #include <IssueDetailedView.h>
 #include <IssuesList.h>
-#include <Platform.h>
 #include <PrList.h>
 #include <ServerConfigDlg.h>
 
@@ -26,15 +26,13 @@
 using namespace GitServerPlugin;
 
 GitServerWidget::GitServerWidget(QWidget *parent)
-   : QFrame(parent)
+   : IGitServerWidget(parent)
    , mGitServerCache(new GitServerCache())
 {
 }
 
-GitServerWidget::GitServerWidget(const QSharedPointer<GitCache> &cache, const QSharedPointer<GitBase> &git,
-                                 QWidget *parent)
-   : QFrame(parent)
-   , mCache(cache)
+GitServerWidget::GitServerWidget(const QSharedPointer<GitBase> &git, QWidget *parent)
+   : IGitServerWidget(parent)
    , mGit(git)
    , mGitServerCache(new GitServerCache())
 {
@@ -77,7 +75,10 @@ bool GitServerWidget::configure(const GitServerPlugin::ConfigData &config,
       }
    }
    else
+   {
+      mGitServerCache->init(config);
       mConfigured = true;
+   }
 
    return mConfigured;
 }
@@ -196,4 +197,9 @@ void GitServerWidget::start(const QVector<QPair<QString, QStringList>> &remoteBr
 QSharedPointer<IGitServerCache> GitServerWidget::getCache()
 {
    return mGitServerCache.staticCast<IGitServerCache>();
+}
+
+IGitServerWidget *GitServerWidget::createWidget(const QSharedPointer<GitBase> &git)
+{
+   return new GitServerWidget(git);
 }

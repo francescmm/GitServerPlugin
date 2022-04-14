@@ -3,6 +3,7 @@
 
 #include <GitHubRestApi.h>
 #include <GitLabRestApi.h>
+#include <GitServerTypes.h>
 
 #include <QJsonDocument>
 #include <QMessageBox>

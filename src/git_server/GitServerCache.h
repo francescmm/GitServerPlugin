@@ -27,18 +27,12 @@
 #include <QObject>
 #include <QVector>
 
+#include <GitServerTypes.h>
 #include <IGitServerCache.h>
-
-#include <Issue.h>
-#include <Platform.h>
 
 namespace GitServerPlugin
 {
-class IRestApi;
-struct PullRequest;
-struct Issue;
-struct Label;
-struct Milestone;
+struct Commit;
 }
 
 class GitServerCache : public QObject, public IGitServerCache
@@ -63,7 +57,7 @@ public:
    QString getUserName() const override;
 
    QVector<GitServerPlugin::PullRequest> getPullRequests() const override;
-   GitServerPlugin::PullRequest getPullRequest(int number) const override { return mPullRequests.value(number); }
+   GitServerPlugin::PullRequest getPullRequest(int number) const override;
    GitServerPlugin::PullRequest getPullRequest(const QString &sha) const override;
    QVector<GitServerPlugin::Issue> getIssues() const override;
    GitServerPlugin::Issue getIssue(int number) const override { return mIssues.value(number); }

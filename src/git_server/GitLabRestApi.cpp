@@ -1,6 +1,6 @@
 #include "GitLabRestApi.h"
 
-#include <Issue.h>
+#include <GitServerTypes.h>
 
 #include <QJsonArray>
 #include <QJsonDocument>

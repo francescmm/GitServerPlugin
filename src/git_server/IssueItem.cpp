@@ -1,14 +1,14 @@
 #include <IssueItem.h>
 
 #include <ButtonLink.hpp>
-#include <PullRequest.h>
+#include <GitServerTypes.h>
 
+#include <QDesktopServices>
 #include <QDir>
 #include <QFile>
-#include <QUrl>
 #include <QGridLayout>
-#include <QDesktopServices>
 #include <QLocale>
+#include <QUrl>
 
 using namespace GitServerPlugin;
 
