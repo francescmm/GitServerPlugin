@@ -35,6 +35,7 @@ jobs:
           target: desktop
           host: ${{ matrix.env.qtplatform }}
           install-deps: true
+          modules: 'qtwebengine'
 
       - name: Installing dependencies
         id: vars
