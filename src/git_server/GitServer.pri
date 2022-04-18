@@ -4,7 +4,6 @@ HEADERS += \
    $$PWD/GitHubRestApi.h \
    $$PWD/GitLabRestApi.h \
    $$PWD/GitServerCache.h \
-   $$PWD/GitServerTypes.h \
    $$PWD/IRestApi.h
 
 SOURCES += \

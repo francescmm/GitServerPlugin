@@ -1,9 +1,11 @@
-INCLUDEPATH = $$PWD
+INCLUDEPATH = $$PWD \
+   $$PWD/interface
 
 HEADERS += \
-   $$PWD/ConfigData.h \
-   $$PWD/IGitServerCache.h \
-   $$PWD/IGitServerWidget.h \
+   $$PWD/interface/ConfigData.h \
+   $$PWD/interface/IGitServerCache.h \
+   $$PWD/interface/IGitServerWidget.h \
+   $$PWD/interface/GitServerTypes.h \
    $$PWD/GitServerWidget.h
 
 SOURCES += \
