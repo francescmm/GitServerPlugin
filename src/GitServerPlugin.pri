@@ -10,3 +10,5 @@ HEADERS += \
 
 SOURCES += \
    $$PWD/GitServerWidget.cpp
+
+RESOURCES += $$PWD/GitServerPlugin.qrc
