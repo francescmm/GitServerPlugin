@@ -97,7 +97,7 @@ ServerConfigDlg::~ServerConfigDlg()
 ConfigData ServerConfigDlg::getNewConfigData() const
 {
    return GitServerPlugin::ConfigData { ui->leUserName->text(), ui->leUserToken->text(), mData.serverUrl, mEndPoint,
-                                  mData.repoName,         mData.repoOwner };
+                                        mData.repoName,         mData.repoOwner };
 }
 
 void ServerConfigDlg::checkToken()
@@ -110,6 +110,8 @@ void ServerConfigDlg::accept()
 {
    mEndPoint = ui->cbServer->currentIndex() == GitHubEnterprise ? ui->leEndPoint->text()
                                                                 : ui->cbServer->currentData().toString();
+
+   QDialog::accept();
 }
 
 void ServerConfigDlg::testToken()
