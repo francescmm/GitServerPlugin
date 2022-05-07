@@ -48,9 +48,6 @@ class CreateIssueDlg : public QFrame
 {
    Q_OBJECT
 
-signals:
-   void issueCreated();
-
 public:
    /**
     * @brief CreateIssueDlg Default constructor.

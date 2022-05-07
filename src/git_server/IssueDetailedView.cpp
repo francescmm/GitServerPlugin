@@ -96,7 +96,7 @@ IssueDetailedView::IssueDetailedView(const QSharedPointer<GitBase> &git,
    connect(actionGroup, &QActionGroup::triggered, this, &IssueDetailedView::openAddReviewDlg);
 
    mAddComment = new QPushButton(this);
-   mAddComment->setCheckable(true);
+   mAddComment->setCheckable(false);
    mAddComment->setChecked(false);
    mAddComment->setIcon(QIcon(":/icons/add_comment"));
    mAddComment->setToolTip(tr("Add new comment"));
@@ -105,7 +105,7 @@ IssueDetailedView::IssueDetailedView(const QSharedPointer<GitBase> &git,
    connect(mAddComment, &QPushButton::clicked, mPrCommentsList, &PrCommentsList::addGlobalComment);
 
    mCloseIssue = new QPushButton(this);
-   mCloseIssue->setCheckable(true);
+   mCloseIssue->setCheckable(false);
    mCloseIssue->setChecked(false);
    mCloseIssue->setIcon(QIcon(":/icons/close_issue"));
    mCloseIssue->setToolTip(tr("Close"));

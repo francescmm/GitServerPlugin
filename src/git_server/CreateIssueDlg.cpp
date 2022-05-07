@@ -157,10 +157,14 @@ void CreateIssueDlg::onLabels(const QVector<Label> &labels)
 
 void CreateIssueDlg::onIssueCreated(const GitServerPlugin::Issue &issue)
 {
-   QMessageBox::information(this, tr("Issue created"),
-                            tr("The issue has been created. You can <a href=\"%1\">find it here</a>.").arg(issue.url));
-
-   emit issueCreated();
+   if (issue.isOpen)
+   {
+      QMessageBox::information(
+          this, tr("Issue created"),
+          tr("The issue has been created. You can <a href=\"%1\">find it here</a>.").arg(issue.url));
+   }
+   else
+      QMessageBox::information(this, tr("Issue updated"), tr("The issue has been closed!").arg(issue.url));
 }
 
 void CreateIssueDlg::onGitServerError(const QString &error)
