@@ -1,3 +1,4 @@
+#include <GitBase.h>
 #include <QApplication>
 #include <QDialog>
 #include <QGridLayout>
@@ -26,9 +27,9 @@ public:
 
       setAttribute(Qt::WA_DeleteOnClose);
 
-      mUrl->setPlaceholderText("GitServer URL");
-      mUser->setPlaceholderText("GitServer User");
-      mToken->setPlaceholderText("GitServer Token");
+      mUrl->setPlaceholderText("GitServer Repo URL");
+      mUser->setPlaceholderText("GitServer Repo owner");
+      mToken->setPlaceholderText("GitServer Repo name");
    }
 
 private:
@@ -39,9 +40,9 @@ private:
    void saveData()
    {
       QSettings settings;
-      settings.setValue("GitServerUrl", mUrl->text());
-      settings.setValue("GitServerUser", mUser->text());
-      settings.setValue("GitServerToken", mToken->text());
+      settings.setValue("GitRepoUrl", mUrl->text());
+      settings.setValue("GitRepoOwner", mUser->text());
+      settings.setValue("GitRepoName", mToken->text());
 
       QDialog::accept();
    }
@@ -56,28 +57,30 @@ int main(int argc, char *argv[])
 
    QApplication app(argc, argv);
    QSettings settings;
+   GitServerPlugin::ConfigData config;
 
-   const auto noInitdata = settings.value("GitServerUrl").toString().isEmpty()
-       || settings.value("GitServerUser").toString().isEmpty() || settings.value("GitServerToken").toString().isEmpty();
-
-   if (noInitdata)
+   if (argc <= 1)
    {
-      if (const auto dlg = new InputDlg(); dlg->exec() != QDialog::Accepted)
+      if (const auto dlg = new InputDlg(); dlg->exec() == QDialog::Accepted)
+      {
+         config = decltype(
+             config) { settings.value("GitRepoOwner").toString(), {},
+                       settings.value("GitRepoUrl").toString(),   {},
+                       settings.value("GitRepoName").toString(),  settings.value("GitRepoOwner").toString() };
+      }
+      else
          return 0;
    }
+   else
+      config = decltype(config) { argv[2], {}, argv[1], {}, argv[3], argv[2] };
 
    QMainWindow mainWindow;
 
-   const auto gitServerWidget = new GitServerWidget();
+   QSharedPointer<GitBase> git(new GitBase(QString::fromUtf8(SOURCE_PATH)));
+
+   const auto gitServerWidget = new GitServerWidget(git);
 
    mainWindow.setCentralWidget(gitServerWidget);
-
-   GitServerPlugin::ConfigData config { settings.value("GitServerUrl").toString(),
-                                        settings.value("GitServerUser").toString(),
-                                        settings.value("GitServerToken").toString(),
-                                        {},
-                                        {},
-                                        {} };
 
    gitServerWidget->configure(std::move(config), {}, "");
    mainWindow.show();

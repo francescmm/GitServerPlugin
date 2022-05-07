@@ -1,6 +1,7 @@
 CONFIG += qt warn_on c++17 c++1z
 
-DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QT_DEPRECATED_WARNINGS \
+   SOURCE_PATH=\\\"$$PWD\\\"
 
 TARGET = IntegrationExample
 
