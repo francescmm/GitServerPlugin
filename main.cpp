@@ -78,12 +78,13 @@ int main(int argc, char *argv[])
 
    QSharedPointer<GitBase> git(new GitBase(QString::fromUtf8(SOURCE_PATH)));
 
-   const auto gitServerWidget = new GitServerWidget(git);
+   const auto gitServerWidget = new GitServerWidget(git, &mainWindow);
 
    mainWindow.setCentralWidget(gitServerWidget);
-
-   gitServerWidget->configure(std::move(config), {}, "");
    mainWindow.show();
 
-   return app.exec();
+   if (gitServerWidget->configure(std::move(config), {}, ""))
+      return app.exec();
+
+   return 0;
 }

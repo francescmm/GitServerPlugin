@@ -18,6 +18,7 @@
 #include <QNetworkRequest>
 #include <QTimer>
 
+#include <map>
 #include <utility>
 
 using namespace QLogger;
@@ -25,7 +26,7 @@ using namespace GitServerPlugin;
 
 namespace
 {
-enum GitServerPlatform
+enum class GitServerPlatform
 {
    GitHub,
    GitHubEnterprise,
@@ -33,9 +34,11 @@ enum GitServerPlatform
    Bitbucket
 };
 
-static const QMap<GitServerPlatform, const char *> repoUrls { { GitHub, "https://api.github.com" },
-                                                              { GitHubEnterprise, "" },
-                                                              { GitLab, "https://gitlab.com/api/v4" } };
+static const std::map<GitServerPlatform, const char *> repoUrls {
+   { GitServerPlatform::GitHub, "https://api.github.com" },
+   { GitServerPlatform::GitHubEnterprise, "" },
+   { GitServerPlatform::GitLab, "https://gitlab.com/api/v4" }
+};
 }
 
 ServerConfigDlg::ServerConfigDlg(const QSharedPointer<GitServerCache> &gitServerCache,
@@ -58,18 +61,18 @@ ServerConfigDlg::ServerConfigDlg(const QSharedPointer<GitServerCache> &gitServer
    ui->leUserToken->setText(mData.token);
    ui->leEndPoint->setText(mData.endPoint);
 
-   ui->cbServer->insertItem(GitHub, "GitHub", repoUrls.value(GitHub));
-   ui->cbServer->insertItem(GitHubEnterprise, "GitHub Enterprise", repoUrls.value(GitHubEnterprise));
+   ui->cbServer->insertItem(static_cast<int>(GitServerPlatform::GitHub), "GitHub",
+                            repoUrls.at(GitServerPlatform::GitHub));
+   ui->cbServer->insertItem(static_cast<int>(GitServerPlatform::GitHubEnterprise), "GitHub Enterprise",
+                            repoUrls.at(GitServerPlatform::GitHubEnterprise));
 
    if (mData.serverUrl.contains("github"))
-   {
-      const auto index = repoUrls.key(ui->leEndPoint->text().toUtf8(), GitHubEnterprise);
-      ui->cbServer->setCurrentIndex(index);
-   }
+      ui->cbServer->setCurrentIndex(static_cast<int>(GitServerPlatform::GitHub));
    else
    {
-      ui->cbServer->insertItem(GitLab, "GitLab", repoUrls.value(GitLab));
-      ui->cbServer->setCurrentIndex(GitLab);
+      ui->cbServer->insertItem(static_cast<int>(GitServerPlatform::GitLab), "GitLab",
+                               repoUrls.at(GitServerPlatform::GitLab));
+      ui->cbServer->setCurrentIndex(static_cast<int>(GitServerPlatform::GitLab));
       ui->cbServer->setVisible(false);
    }
 
@@ -108,8 +111,9 @@ void ServerConfigDlg::checkToken()
 
 void ServerConfigDlg::accept()
 {
-   mEndPoint = ui->cbServer->currentIndex() == GitHubEnterprise ? ui->leEndPoint->text()
-                                                                : ui->cbServer->currentData().toString();
+   mEndPoint = ui->cbServer->currentIndex() == static_cast<int>(GitServerPlatform::GitHubEnterprise)
+       ? ui->leEndPoint->text()
+       : ui->cbServer->currentData().toString();
 
    QDialog::accept();
 }
@@ -120,11 +124,12 @@ void ServerConfigDlg::testToken()
       ui->leUserName->setStyleSheet("border: 1px solid red;");
    else
    {
-      const auto endpoint = ui->cbServer->currentIndex() == GitHubEnterprise ? ui->leEndPoint->text()
-                                                                             : ui->cbServer->currentData().toString();
+      const auto endpoint = ui->cbServer->currentIndex() == static_cast<int>(GitServerPlatform::GitHubEnterprise)
+          ? ui->leEndPoint->text()
+          : ui->cbServer->currentData().toString();
       IRestApi *api = nullptr;
 
-      if (ui->cbServer->currentIndex() == GitLab)
+      if (ui->cbServer->currentIndex() == static_cast<int>(GitServerPlatform::GitLab))
       {
          api = new GitLabRestApi(ui->leUserName->text(), mData.repoName, mData.serverUrl,
                                  { ui->leUserName->text(), ui->leUserToken->text(), endpoint }, this);
@@ -145,7 +150,7 @@ void ServerConfigDlg::testToken()
 
 void ServerConfigDlg::onServerChanged()
 {
-   ui->leEndPoint->setVisible(ui->cbServer->currentIndex() == GitHubEnterprise);
+   ui->leEndPoint->setVisible(ui->cbServer->currentIndex() == static_cast<int>(GitServerPlatform::GitHubEnterprise));
 }
 
 void ServerConfigDlg::onTestSucceeded()
