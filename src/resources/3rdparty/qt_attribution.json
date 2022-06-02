@@ -8,7 +8,7 @@
         "Files": "marked.js",
         "Description": "A full-featured markdown parser and compiler, written in JavaScript. Built for speed.",
         "Homepage": "https://github.com/chjj/marked",
-        "Version": "0.4.0",
+        "Version": "0.4.10",
         "DownloadLocation": "https://github.com/markedjs/marked/blob/0.4.0/lib/marked.js",
         "Copyright": "Copyright (c) 2011-2018, Christopher Jeffrey",
         "License": "MIT License",
