@@ -203,3 +203,8 @@ IGitServerWidget *GitServerWidget::createWidget(const QSharedPointer<GitBase> &g
 {
    return new GitServerWidget(git);
 }
+
+IGitServerWidget *createWidget(const QSharedPointer<GitBase> &git)
+{
+   return new GitServerWidget(git);
+}

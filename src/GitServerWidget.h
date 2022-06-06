@@ -50,7 +50,7 @@ public:
    explicit GitServerWidget(QWidget *parent = nullptr);
    explicit GitServerWidget(const QSharedPointer<GitBase> &git, QWidget *parent = nullptr);
 
-   virtual ~GitServerWidget() override;
+   ~GitServerWidget() override;
 
    bool configure(const GitServerPlugin::ConfigData &config, const QVector<QPair<QString, QStringList>> &remoteBranches,
                   const QString &styles) override;
